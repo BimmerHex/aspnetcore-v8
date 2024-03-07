@@ -1,1 +1,12 @@
+@model ProductListViewModel
+
 <h5>Index Page</h5>
+
+@foreach (var product in Model.Products)
+{
+    <div>
+        <h4>@product.Name</h4>
+        <p>@product.Description</p>
+        <p>@product.Price</p>
+    </div>
+}
