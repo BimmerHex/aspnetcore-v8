@@ -1,19 +1,30 @@
 @model ProductListViewModel
 
-<h5>Index Page</h5>
-
-@if (Model.Products.Count() == 0)
-{
-    <p>Ürün bulunamadı.</p>
-}
-
-@foreach (var product in Model.Products)
-{
-    <div>
-        <h4>@product.Name</h4>
-        <p>@product.Description</p>
-        <p>@product.Price</p>
+<div class="row">
+    <div class="col-md-3">
+        Kategoriler
     </div>
-}
-
-<div page-model="@Model.PageInfo" page-action="Index"></div>
+    <div class="col-md-9">
+        @if (Model.Products.Count() == 0)
+        {
+            <p>Ürün bulunamadı.</p>
+        }
+        
+        @foreach (var product in Model.Products)
+        {
+            <div class="card card-outline-secondary mb-2 p-2">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4>@product.Name</h4>
+                        <p>@product.Description</p>
+                    </div>
+                    <div>
+                        <span class="badge rounded-pill text-bg-success">@product.Price.ToString("C2")</span>
+                    </div>
+                </div>
+            </div>
+        }
+        
+        <div page-model="@Model.PageInfo" page-action="Index" page-class="btn" page-class-link="btn-outline-secondary" page-class-active="btn-success" class="btn-group my-2"></div>
+    </div>
+</div>
