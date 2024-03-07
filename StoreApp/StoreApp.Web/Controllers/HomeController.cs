@@ -6,6 +6,7 @@ namespace StoreApp.Web.Controllers;
 
 public class HomeController : Controller
 {
+    public int pageSize = 3;
     private IStoreRepository _storeRepository;
 
     public HomeController(IStoreRepository storeRepository)
@@ -13,14 +14,14 @@ public class HomeController : Controller
         _storeRepository = storeRepository;
     }
 
-    public IActionResult Index()
+    public IActionResult Index(int page = 1)
     {
-        var products = _storeRepository.Products.Select(p => new ProductViewModel {
+        var products = _storeRepository.Products.Skip((page - 1) * pageSize).Select(p => new ProductViewModel {
             Id = p.Id,
             Name = p.Name,
             Description = p.Description,
             Price = p.Price
-        }).ToList();
+        }).Take(pageSize);
 
         return View(new ProductListViewModel {
             Products = products
